@@ -1,0 +1,11 @@
+pre_commit:
+  hooks:
+    - id: backend
+      files: ./backend/*/*.py$
+      args: ["$@"]
+
+hooks:
+  backend:
+    - isort .
+    - black .
+    - flake8 .
