@@ -1,0 +1,22 @@
+pre_commit:
+  hooks:
+    - id: backend
+      files: ./backend/**/*.py$
+      args: ["$@"]
+
+hooks:
+  backend:
+    - id: isort
+      name: isort
+      stages: [commit]
+      command: isort .
+
+    - id: black
+      name: black
+      stages: [commit]
+      command: black .
+
+    - id: flake8
+      name: flake8
+      stages: [commit]
+      command: flake8 .
