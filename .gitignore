@@ -1,3 +1,31 @@
-*.pyc
-.venv/
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+
+# SQLAlchemy
+*.sqlite
+
+# Docker
+docker-compose.yml
+.env
+
+# IDE/Editor specific ignores
+.vscode/
 .idea/
+
+# PostgreSQL
+*.sql
+*.dump
+*.bak
+
+# Logs
+*.log
+*.db
+
+# Environment-specific files
+.env*
+.venv/
+
+# Other
+.temp/
+
