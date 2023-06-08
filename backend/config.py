@@ -1,4 +1,3 @@
-# app/config.py
 import os
 from dotenv import load_dotenv
 
@@ -23,8 +22,10 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # SQLAlchemy logs for debugging
     SQLALCHEMY_ECHO = True
+    SQLALCHEMY_MIGRATE_REPO="backend/app/"
+    MIGRATION_DIR='backend/app/migrations'
 
-    # Flask-Session#
+    # Flask-Session
     SESSION_COOKIE_NAME = "tic-tac-toe"
     SESSION_TYPE = "sqlalchemy"
     SESSION_PERMANENT = False
