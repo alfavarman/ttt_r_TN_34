@@ -8,8 +8,22 @@ users_bp = Blueprint('users', __name__, url_prefix='/user')
 
 @users_bp.route('/create', methods=['POST'])
 def create_user():
-    # create new user
-    pass
+    # get data from request
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    # validate data     #TODO password validator
+    if not username or not password:
+        return jsonify({"error": "Missing username or password"}), 400
+
+    # create user
+    user = User(username=username, password=password)
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({"message": "User created"}), 201
+
 
 
 @users_bp.route('/login', methods=['POST'])
