@@ -1,6 +1,5 @@
-from flask import Blueprint, jsonify, request
-
 from database import db
+from flask import Blueprint, jsonify, request
 
 multiplayer_bp = Blueprint("multiplayer", __name__, url_prefix="/game/multiplayer")
 

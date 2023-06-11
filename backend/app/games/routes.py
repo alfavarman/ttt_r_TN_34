@@ -1,20 +1,20 @@
 from datetime import date, datetime
 
-from flask import Blueprint, jsonify, request, url_for
-from flask_jwt_extended import jwt_required, get_jwt_identity
-
-from app.models import User, Sessions, Games, Statistics
+from app.models import Games, Sessions, Statistics, User
 from app.ttt.ttt import TicTacToe
 from database import db
+from flask import Blueprint, jsonify, request, url_for
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 games_bp = Blueprint("games", __name__, url_prefix="/game")
 
 
-from flask import request, redirect
+from flask import redirect, request
+
 
 @games_bp.route("/select", methods=["GET", "POST"])
 def select_game_mode():
-    """ endpoint to select the game mode (player vs. computer or player vs. player)"""
+    """endpoint to select the game mode (player vs. computer or player vs. player)"""
     if request.method == "POST":
         mode = request.form.get("mode")
         if mode == "player_vs_computer":
@@ -29,7 +29,10 @@ def select_game_mode():
     # or redirect to endpoints depend on FE idea
     return jsonify({"game_modes": game_modes}), 200
 
+
 game_session = TicTacToe()
+
+
 @games_bp.route("/start", methods=["POST"])
 @jwt_required
 def start_game():
@@ -49,7 +52,6 @@ def start_game():
             # "end game session when user cant add credit"
             return redirect(url_for("session.end_game_session"))
 
-
     # create new session and game
     session = Sessions(user_id=user_id, status="active")
     game = Games(session_id=session.id, start_time=datetime.now())
@@ -60,19 +62,23 @@ def start_game():
     db.session.commit()
 
     # return game created details
-    return jsonify({
-        "session_id": session.id,
-        "game_id": game.id,
-        "game_mode": game_mode,
-        "user_credits": user.credits,
-        "board": game.board
-    }), 201
-
+    return (
+        jsonify(
+            {
+                "session_id": session.id,
+                "game_id": game.id,
+                "game_mode": game_mode,
+                "user_credits": user.credits,
+                "board": game.board,
+            }
+        ),
+        201,
+    )
 
 
 @games_bp.route("/play", methods=["POST"])
 def play_game():
-    """ endpoint to play a game"""
+    """endpoint to play a game"""
 
     # get data from request
     data = request.get_json()
@@ -94,7 +100,7 @@ def play_game():
     game_session.make_move(move)
     # check for winner
     winner = game_session.check_winner()
-    draw = (winner == 'tie')
+    draw = winner == "tie"
 
     # if winner is None computer to make move
     if not winner:
@@ -118,22 +124,31 @@ def play_game():
         db.session.add(game)
         db.session.add(user)
         db.session.commit()
-        return jsonify({
-            "message": "Game finished",
-            "session_id": session_id,
-            "game_id": game_id,
-            "user_credits": user.credits,
-            "board": game.board,
-            "winner": winner
-        }), 201
+        return (
+            jsonify(
+                {
+                    "message": "Game finished",
+                    "session_id": session_id,
+                    "game_id": game_id,
+                    "user_credits": user.credits,
+                    "board": game.board,
+                    "winner": winner,
+                }
+            ),
+            201,
+        )
 
-    return jsonify({
-        "message": "Move played successfully",
-        "board": game_session.board,
-        "session_id": session_id,
-        "game_id": game_id,
-    }), 200
-
+    return (
+        jsonify(
+            {
+                "message": "Move played successfully",
+                "board": game_session.board,
+                "session_id": session_id,
+                "game_id": game_id,
+            }
+        ),
+        200,
+    )
 
 
 @games_bp.route("/stats", methods=["GET"])
@@ -141,7 +156,9 @@ def get_game_stats():
     """endpoint to return stats for current day"""
     # get stats from today:
     today = date.today()
-    statistics = Statistics.query.filter(db.func.date(Statistics.created_at) == today).all()
+    statistics = Statistics.query.filter(
+        db.func.date(Statistics.created_at) == today
+    ).all()
 
     # convert stats to dictionary
     game_stats = {}

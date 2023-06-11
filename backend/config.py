@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -7,6 +8,7 @@ load_dotenv()
 
 class Config:
     """Set Flask config variables."""
+
     # General Config
     ENVIRONMENT = os.getenv("ENVIRONMENT")
     FLASK_APP = os.getenv("FLASK_APP")
@@ -22,14 +24,14 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # SQLAlchemy logs for debugging
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_MIGRATE_REPO="backend/app/"
-    MIGRATION_DIR="backend/app/migrations"
+    SQLALCHEMY_MIGRATE_REPO = "backend/app/"
+    MIGRATION_DIR = "backend/app/migrations"
 
     # Flask-Session
     SESSION_COOKIE_NAME = "tic-tac-toe"
     SESSION_TYPE = "sqlalchemy"
     SESSION_PERMANENT = False
-    SESSION_SQLALCHEMY= SQLALCHEMY_DATABASE_URI
+    SESSION_SQLALCHEMY = SQLALCHEMY_DATABASE_URI
     SESSION_USE_SIGNER = True
 
     # JWT

@@ -1,6 +1,5 @@
-from sqlalchemy import Enum
-
 from database import db
+from sqlalchemy import Enum
 
 
 class Statistics(db.Model):

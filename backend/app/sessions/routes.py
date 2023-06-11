@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from flask import Blueprint, jsonify, request
-
 from app.models import Sessions
 from database import db
+from flask import Blueprint, jsonify, request
 
 session_bp = Blueprint("session", __name__, url_prefix="/session")
 
@@ -21,6 +20,7 @@ def get_session_status():
         return jsonify({"status": session.status}), 200
     else:
         return jsonify({"error": "Session not exist"}), 404
+
 
 @session_bp.route("/end", methods=["POST"])
 def end_session():

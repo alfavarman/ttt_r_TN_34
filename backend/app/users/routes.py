@@ -1,17 +1,16 @@
-from flask import Blueprint, jsonify, request
-from werkzeug.security import generate_password_hash
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-
-from app.models import User, Sessions, Games, Statistics
+from app.models import Games, Sessions, Statistics, User
 from database import db
-
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import (create_access_token, get_jwt_identity,
+                                jwt_required)
+from werkzeug.security import generate_password_hash
 
 users_bp = Blueprint("users", __name__, url_prefix="/user")
 
 
 @users_bp.route("/create", methods=["POST"])
 def create_user():
-    """ endpoint to create a new user username and password required"""
+    """endpoint to create a new user username and password required"""
     # get data from request
     username = request.json.get("username")
     user = User.query.get(username=username)
@@ -35,10 +34,9 @@ def create_user():
     return jsonify({"message": "User created"}), 201
 
 
-
 @users_bp.route("/login", methods=["POST"])
 def login():
-    """ endpoint to handle user login"""
+    """endpoint to handle user login"""
     # Get username from request or return missing username
     username = request.json.get("username")
     if not username:
@@ -65,11 +63,10 @@ def login():
     return jsonify({"message": "User logged in", "access_token": access_token}), 200
 
 
-
 @users_bp.route("/credits", methods=["GET"])
 @jwt_required
 def get_user_credits():
-    """ endpoint to get user credits"""
+    """endpoint to get user credits"""
     # return credits of auth user
     credits = User.query.get(id=get_jwt_identity()).credits
     return jsonify({"credits": credits}), 200
@@ -78,7 +75,7 @@ def get_user_credits():
 @users_bp.route("/credits", methods=["POST"])
 @jwt_required
 def add_user_credits():
-    """ endpoint to add credits to user account user must be authenticated, balance must be 0"""
+    """endpoint to add credits to user account user must be authenticated, balance must be 0"""
     user = User.query.get(id=get_jwt_identity())
 
     # TODO (EXTRA) payment
@@ -90,11 +87,10 @@ def add_user_credits():
     # TODO (EXTRA)logger
 
 
-
 @users_bp.route("/stats", methods=["GET"])
 @jwt_required
 def get_user_stats():
-    """ endpoint to get user statistics, user must be auth"""
+    """endpoint to get user statistics, user must be auth"""
 
     # get user stats:
     user_id = get_jwt_identity()

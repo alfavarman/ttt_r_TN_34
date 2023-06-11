@@ -1,5 +1,5 @@
-from werkzeug.security import check_password_hash
 from database import db
+from werkzeug.security import check_password_hash
 
 
 class User(db.Model):
@@ -11,13 +11,13 @@ class User(db.Model):
     credits = db.Column(db.Integer, nullable=False, default=10)
 
     def __init__(self, username, password, credits):
-        """ init """
+        """init"""
         self.username = username
         self.password = password
         self.credits = credits
 
     def __repr__(self) -> str:
-        """ repr User username"""
+        """repr User username"""
         return f"<User {self.username}>"
 
     def create(self) -> str:
@@ -28,7 +28,6 @@ class User(db.Model):
     def check_password(self, password: str) -> bool:
         """check password"""
         return check_password_hash(self.password, password)
-
 
     def add_credits(self) -> bool:
         """add credits"""
