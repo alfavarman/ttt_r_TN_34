@@ -1,16 +1,20 @@
+from datetime import datetime
+
+from sqlalchemy import Enum
+
 from database import db
 
 
 class Games(db.Model):
-    __tablename__ = 'games'
+    __tablename__ = "games"
 
     id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'), nullable=False)
-    start_time = db.Column(db.DateTime)
+    session_id = db.Column(db.Integer, db.ForeignKey("sessions.id"), nullable=False)
+    start_time = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     end_time = db.Column(db.DateTime)
-    result = db.Column(db.String(255))
+    result = db.Column(Enum("X", "O", "tie", name="result"))
 
-    session = db.relationship('Session', backref='games')
+    session = db.relationship("Session", backref="games")
 
     def __repr__(self):
         return f"<Game {self.id}>"

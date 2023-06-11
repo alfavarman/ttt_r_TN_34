@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 
 from config import Config
@@ -13,6 +14,9 @@ def create_app():
     # Load app configuration
     app.config.from_object(Config)
 
+    # JWT
+    jwt = JWTManager(app)
+
     # Initialize the database - for db connection test
     db.init_app(app)
     migrate = Migrate(app=app, db=db, directory=Config.MIGRATION_DIR)
@@ -24,6 +28,10 @@ def create_app():
 
     return app
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = create_app()
     app.run(debug=True)
+
+
+############
+# TODO Extra (out of task scope) Logger
