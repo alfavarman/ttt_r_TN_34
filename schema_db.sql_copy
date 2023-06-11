@@ -1,0 +1,38 @@
+CREATE TABLE "User" (
+  "id" int PRIMARY KEY,
+  "username" varchar UNIQUE,
+  "password" varchar,
+  "credits" int
+);
+
+CREATE TABLE "Session" (
+  "id" int PRIMARY KEY,
+  "user_id" int,
+  "start_time" datetime,
+  "end_time" datetime,
+  "status" varchar
+);
+
+CREATE TABLE "Game" (
+  "id" int PRIMARY KEY,
+  "session_id" int,
+  "start_time" datetime,
+  "end_time" datetime,
+  "result" varchar
+);
+
+CREATE TABLE "Statistics" (
+  "id" int PRIMARY KEY,
+  "game_id" int,
+  "player_id" int,
+  "duration" int,
+  "result" varchar
+);
+
+ALTER TABLE "Session" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id");
+
+ALTER TABLE "Game" ADD FOREIGN KEY ("session_id") REFERENCES "Session" ("id");
+
+ALTER TABLE "Statistics" ADD FOREIGN KEY ("game_id") REFERENCES "Game" ("id");
+
+ALTER TABLE "Statistics" ADD FOREIGN KEY ("player_id") REFERENCES "User" ("id");

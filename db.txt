@@ -1,0 +1,31 @@
+// Docs: https://dbml.dbdiagram.io/docs
+Table User {
+  id int [pk]
+  username varchar [unique]
+  password string
+  credits int
+}
+
+Table Session {
+  id int [pk]
+  user_id int [ref: > User.id]
+  start_time datetime
+  end_time datetime
+  status varchar
+}
+
+Table Game {
+  id int [pk]
+  session_id int [ref: > Session.id]
+  start_time datetime
+  end_time datetime
+  result varchar
+}
+
+Table Statistics {
+  id int [pk]
+  game_id int [ref: > Game.id]
+  player_id int [ref: > User.id]
+  duration int
+  result varchar
+}
