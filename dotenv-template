@@ -1,0 +1,21 @@
+# .env
+PYTHONPATH=/home/charles/PycharmProjects/rekrutacje/TermNet/ttt_r_tn_34
+
+# app config
+ENVIRONMENT=development
+FLASK_APP=backend/app/app.py
+FLASK_DEBUG=True
+SECRET_KEY=t*9T2^3!$*!62%
+
+# db config
+DB_USERNAME=postgres
+DB_PASSWORD=psqlcharles
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=tic_tac_toe
+
+# FLASK
+MIGRATION_DIR=backend/migrations
+
+# JWT
+JWT_SECRET_KEY="tom!Y@um%Gung"

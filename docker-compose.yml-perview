@@ -1,0 +1,13 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pg_db_ttt:/var/lib/postgresql/data
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+volumes:
+  pg_db_ttt:

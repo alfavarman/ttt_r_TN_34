@@ -1,0 +1,48 @@
+.
+├── backend
+│   ├── app
+│   │   ├── app.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── alembic.ini
+│   │   │   ├── env.py
+│   │   │   ├── __pycache__
+│   │   │   │   └── env.cpython-310.pyc
+│   │   │   ├── README
+│   │   │   ├── script.py.mako
+│   │   │   └── versions
+│   │   │       ├── c05db845d219_initial_migration.py
+│   │   │       └── __pycache__
+│   │   │           └── c05db845d219_initial_migration.cpython-310.pyc
+│   │   ├── models
+│   │   │   ├── games.py
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── games.cpython-310.pyc
+│   │   │   │   ├── __init__.cpython-310.pyc
+│   │   │   │   ├── sessions.cpython-310.pyc
+│   │   │   │   ├── statistics.cpython-310.pyc
+│   │   │   │   └── users.cpython-310.pyc
+│   │   │   ├── sessions.py
+│   │   │   ├── statistics.py
+│   │   │   └── users.py
+│   │   ├── __pycache__
+│   │   │   ├── app.cpython-310.pyc
+│   │   │   └── __init__.cpython-310.pyc
+│   │   └── routes.py
+│   ├── config.py
+│   ├── database.py
+│   ├── __pycache__
+│   │   ├── config.cpython-310.pyc
+│   │   └── database.cpython-310.pyc
+│   └── tests
+├── db_uml.png
+├── docker-compose.yml
+├── file_structure.txt
+├── lefthook.yml
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+└── schema_db.sql
+
+11 directories, 34 files
