@@ -1,11 +1,11 @@
+from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
-from sqlalchemy_utils import database_exists, create_database
-from config import Config
-
+from sqlalchemy_utils import create_database, database_exists
 
 # Create a new SQLAlchemy database instance
 db = SQLAlchemy()
+
 
 # Test the database connection
 def test_db_connection():

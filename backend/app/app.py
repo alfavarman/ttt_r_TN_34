@@ -1,8 +1,8 @@
-from flask import Flask
-from flask_migrate import Migrate
-
 from config import Config
 from database import db, test_db_connection
+from flask import Flask
+from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 
 
 # app instance to test configuration setup and db connection
@@ -13,10 +13,13 @@ def create_app():
     # Load app configuration
     app.config.from_object(Config)
 
+    # JWT
+    jwt = JWTManager(app)
+
     # Initialize the database - for db connection test
     db.init_app(app)
     migrate = Migrate(app=app, db=db, directory=Config.MIGRATION_DIR)
-    from app.models import (User, Statistics, Games, Sessions)
+    from app.models import Games, Sessions, Statistics, User
 
     # Test the database connection
     with app.app_context():
@@ -24,6 +27,11 @@ def create_app():
 
     return app
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = create_app()
     app.run(debug=True)
+
+
+############
+# TODO Extra (out of task scope) Logger
